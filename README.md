@@ -55,3 +55,6 @@ chmod +x run_setup.sh
 ./run_setup.sh
 ```
 
+### Plugins
+
+- [Telescope](https://github.com/nvim-telescope/telescope.nvim)
