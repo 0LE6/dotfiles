@@ -58,3 +58,12 @@ chmod +x run_setup.sh
 ### Plugins
 
 - [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+- [Language Protocol Service](https://github.com/neovim/nvim-lspconfig)
+- [Tree](https://github.com/nvim-tree/nvim-tree.lua)
+- [Treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+- [Terminal](https://github.com/akinsho/toggleterm.nvim)
+- [Comment](https://github.com/numToStr/Comment.nvim) 
+- [Autopairs](https://github.com/windwp/nvim-autopairs)
+- [Lualine](https://github.com/nvim-lualine/lualine.nvim)
+- [Markdown Preview](https://github.com/iamcco/markdown-preview.nvim)
+- [Web Devicons](https://github.com/nvim-tree/nvim-web-devicons)
