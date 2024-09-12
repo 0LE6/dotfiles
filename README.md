@@ -2,6 +2,8 @@
 
 ⚠️ **WORK IN PROGRESS**: El contenido siguiente está en desarrollo activo y puede cambiar, no obstante es estable a día de hoy.
 
+Update (12/09/24): añadido plugin neorg para tomar notas, requiere isntalar [luarocks](https://luarocks.org/)
+
 ![Powershell](pic.png)
 
 ![Powershell2](pic2.png)
