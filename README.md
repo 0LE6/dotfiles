@@ -69,3 +69,5 @@ chmod +x run_setup.sh
 - [Lualine](https://github.com/nvim-lualine/lualine.nvim)
 - [Markdown Preview](https://github.com/iamcco/markdown-preview.nvim)
 - [Web Devicons](https://github.com/nvim-tree/nvim-web-devicons)
+- [Neorg](https://github.com/nvim-neorg/neorg)
+
