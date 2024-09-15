@@ -9,6 +9,27 @@ return {
 	-- Creamos una función a la que decimos que mediante el require, el setup de nuestro telescope se haga con lo que configueremos dentro.
 	
 	config = function()
+        local telescope = require('telescope')
+        local builtin = require('telescope.builtin')
+        local actions = require('telescope.actions')
+        local action_state = require('telescope.actions.state')
+
+        -- Configura Telescope
+        telescope.setup({
+            defaults = {
+                mappings = {
+                    i = {
+                        ["<leader><tab>"] = function(prompt_bufnr)
+                            local selection = action_state.get_selected_entry()
+                            actions.close(prompt_bufnr)
+                            if selection then
+                                vim.cmd('tabnew ' .. selection.path)
+                            end
+                        end,
+                    },
+                },
+            },
+        })
 		require('telescope').setup({})
 		
 		local builtin = require('telescope.builtin')
