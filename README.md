@@ -35,7 +35,8 @@ scoop install ripgrep
 scoop install fd
 `````
 
-__NOTE:__ quizás se me escape algún detalle más, lo añadiriá aquí como update.
+> [!NOTE]
+> quizás se me escape algún detalle más, lo añadiriá aquí como update.
 
 ## Config Linux o en su defecto WSL
 
@@ -46,6 +47,7 @@ Para que todo sea más sencillo y rapido, usar Homebrew como manejador de paquet
 https://brew.sh/
 
 ```bash
+# copia & pega para isntalar brew (extraído del enlace anterior)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
