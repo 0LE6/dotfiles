@@ -40,23 +40,23 @@ end, {
 })
 
 return {
-    {
-        "folke/tokyonight.nvim",
-        config = function()
-            require("tokyonight").setup({
-                style = "storm", -- Estilo, elige entre storm, moon, night y day
-                transparent = true, -- Fondo transparente como en RosePine
-                terminal_colors = true, -- Colores para el terminal
-                styles = {
-                    comments = { italic = false },
-                    keywords = { italic = false },
-                    sidebars = "transparent", -- Transparencia en las barras laterales
-                    floats = "transparent", -- Transparencia en ventanas flotantes
-                },
-            })
-            settingColors("tokyonight") -- Aplicamos los mismos estilos con la paleta de TokyoNight
-        end
-    },
+    -- {
+    --     "folke/tokyonight.nvim",
+    --     config = function()
+    --         require("tokyonight").setup({
+    --             style = "storm", -- Estilo, elige entre storm, moon, night y day
+    --             transparent = true, -- Fondo transparente como en RosePine
+    --             terminal_colors = true, -- Colores para el terminal
+    --             styles = {
+    --                 comments = { italic = false },
+    --                 keywords = { italic = false },
+    --                 sidebars = "transparent", -- Transparencia en las barras laterales
+    --                 floats = "transparent", -- Transparencia en ventanas flotantes
+    --             },
+    --         })
+    --         settingColors("tokyonight") -- Aplicamos los mismos estilos con la paleta de TokyoNight
+    --     end
+    -- },
     {
         "rose-pine/neovim",
         name = "rose-pine",
@@ -72,16 +72,16 @@ return {
             settingColors("rose-pine")
         end
     },
-
-    {
-        "rebelot/kanagawa.nvim",
-        config = function()
-            require('kanagawa').setup({
-                transparent = true,
-                commentStyle = { italic = false },
-                keywordStyle = { italic = false },
-            })
-            settingColors("kanagawa")
-        end
-    } 
+    --
+    -- {
+    --     "rebelot/kanagawa.nvim",
+    --     config = function()
+    --         require('kanagawa').setup({
+    --             transparent = true,
+    --             commentStyle = { italic = false },
+    --             keywordStyle = { italic = false },
+    --         })
+    --         settingColors("kanagawa")
+    --     end
+    -- } 
 }
