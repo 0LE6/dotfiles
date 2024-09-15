@@ -1,6 +1,7 @@
 # First Neovim config from scratch
 
-⚠️ **WORK IN PROGRESS**: El contenido siguiente está en desarrollo activo y puede cambiar, no obstante es estable a día de hoy.
+> [!WARNING]
+> El contenido siguiente está en desarrollo activo y puede cambiar, no obstante es estable a día de hoy.
 
 Update (12/09/24): añadido plugin neorg para tomar notas, requiere isntalar [luarocks](https://luarocks.org/)
 
