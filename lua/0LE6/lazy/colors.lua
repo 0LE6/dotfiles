@@ -1,36 +1,62 @@
 -- Copiado de y modificado a raíz de: https://github.com/ThePrimeagen/init.lua/blob/master/lua/theprimeagen/lazy/colors.lua
 function settingColors(color)
-	color = color or "rose-pine"
-	vim.cmd.colorscheme(color)
+    color = color or "rose-pine"
+    vim.cmd.colorscheme(color)
 
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+    
+    -- Desactivar el resalte de la línea actual en los buffers normales
+    vim.api.nvim_set_hl(0, "CursorLine", { bg = "none" })
 
+    -- Desactivar el resalte de la línea actual en nvim-tree
+    vim.api.nvim_set_hl(0, "NvimTreeCursorLine", { bg = "none" })
+
+    -- Ajustar los números de línea para que sean grisáceos
+    vim.api.nvim_set_hl(0, "LineNr", { fg = "#5c6370", bg = "none" }) -- Color gris para los números de línea
+    vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#abb2bf", bg = "none", bold = true })
+
+    -- Hacer que la columna de signos (SignColumn) sea transparente
+    vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+
+    -- Hacer que los íconos de diagnóstico tengan fondo transparente
+    vim.api.nvim_set_hl(0, "DiagnosticError", { bg = "none" })
+    vim.api.nvim_set_hl(0, "DiagnosticWarn", { bg = "none" })
+    vim.api.nvim_set_hl(0, "DiagnosticInfo", { bg = "none" })
+    vim.api.nvim_set_hl(0, "DiagnosticHint", { bg = "none" })
+
+    -- Resaltar el texto flotante (por ejemplo, cuadros de diálogo)
+    vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none", fg = "#5c6370" }) -- Borde flotante transparente con color gris
 end
+
+-- Command to switch themes
+vim.api.nvim_create_user_command('ColorTheme', function(opts)
+    settingColors(opts.args)
+end, {
+    nargs = 1,
+    complete = function()
+        return {"tokyonight", "rose-pine", "kanagawa"}
+    end
+})
 
 return {
     {
         "folke/tokyonight.nvim",
         config = function()
             require("tokyonight").setup({
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-                transparent = true, -- Enable this to disable setting the background color
-                terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+                style = "storm", -- Estilo, elige entre `storm`, `moon`, `night` y `day`
+                transparent = true, -- Fondo transparente como en RosePine
+                terminal_colors = true, -- Colores para el terminal
                 styles = {
-                    -- Style to be applied to different syntax groups
-                    -- Value is any valid attr-list value for `:help nvim_set_hl`
                     comments = { italic = false },
                     keywords = { italic = false },
-                    -- Background styles. Can be "dark", "transparent" or "normal"
-                    sidebars = "dark", -- style for sidebars, see below
-                    floats = "dark", -- style for floating windows
+                    sidebars = "transparent", -- Transparencia en las barras laterales
+                    floats = "transparent", -- Transparencia en ventanas flotantes
                 },
             })
+            settingColors("tokyonight") -- Aplicamos los mismos estilos con la paleta de TokyoNight
         end
     },
-
     {
         "rose-pine/neovim",
         name = "rose-pine",
@@ -40,14 +66,23 @@ return {
                 disable_background = true,
                 styles = {
                     italic = false,
-                    -- importante para la trasparencia en el background
                     transparency = true,
                 },
             })
-
-            vim.cmd("colorscheme rose-pine")
-
-            settingColors()
+            settingColors("rose-pine")
         end
     },
+
+    {
+        "rebelot/kanagawa.nvim",
+        config = function()
+            require('kanagawa').setup({
+                transparent = true,
+                commentStyle = { italic = false },
+                keywordStyle = { italic = false },
+            })
+            settingColors("kanagawa")
+        end
+    } 
 }
+
