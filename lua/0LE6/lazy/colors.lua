@@ -44,7 +44,7 @@ return {
         "folke/tokyonight.nvim",
         config = function()
             require("tokyonight").setup({
-                style = "storm", -- Estilo, elige entre `storm`, `moon`, `night` y `day`
+                style = "storm", -- Estilo, elige entre storm, moon, night y day
                 transparent = true, -- Fondo transparente como en RosePine
                 terminal_colors = true, -- Colores para el terminal
                 styles = {
@@ -85,4 +85,3 @@ return {
         end
     } 
 }
-
