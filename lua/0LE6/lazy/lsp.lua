@@ -23,6 +23,25 @@ return {
                 silent = true,
                 desc = 'Show hover information'
             })
+
+            -- Update: ir a definición, implementación y referencia.
+            vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {
+                noremap = true,
+                silent = true, 
+                desc = 'Go to the definition'
+            })
+
+            vim.api.nvim_buf_set_keymap(bufnr, 'n', '<CR>', '<cmd>lua vim.lsp.buf.definition()<CR>', {
+                noremap = true,
+                silent = true,
+                desc = 'Go to definition/implementation'
+            })
+
+            vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>Telescope lsp_references<CR>', {
+                noremap = true,
+                silent = true,
+                desc = 'Find references with Telescope'
+            })
         end
 
         -- Configuración de las capacidades para LSP y nvim-cmp.
