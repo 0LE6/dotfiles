@@ -42,6 +42,13 @@ return {
                 silent = true,
                 desc = 'Find references with Telescope'
             })
+
+            -- Esto hace lo mismo que el anterior, pero con <leader>tab te lo abre en otra tab.
+            vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader><Tab>', [[<cmd>Telescope lsp_references<CR><cmd>lua require('telescope.actions').select_tab()<CR>]], {
+        noremap = true,
+        silent = true,
+        desc = 'Find references and open in new tab'
+    })
         end
 
         -- Configuración de las capacidades para LSP y nvim-cmp.

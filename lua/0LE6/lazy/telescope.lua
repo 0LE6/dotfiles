@@ -15,6 +15,22 @@ return {
         local action_state = require('telescope.actions.state')
 
         -- Configura Telescope
+        -- telescope.setup({
+        --     defaults = {
+        --         mappings = {
+        --             i = {
+        --                 ["<leader><tab>"] = function(prompt_bufnr)
+        --                     local selection = action_state.get_selected_entry()
+        --                     actions.close(prompt_bufnr)
+        --                     if selection then
+        --                         vim.cmd('tabnew ' .. selection.path)
+        --                     end
+        --                 end,
+        --             },
+        --         },
+        --     },
+        -- })
+        
         telescope.setup({
             defaults = {
                 mappings = {
@@ -22,16 +38,31 @@ return {
                         ["<leader><tab>"] = function(prompt_bufnr)
                             local selection = action_state.get_selected_entry()
                             actions.close(prompt_bufnr)
-                            if selection then
-                                vim.cmd('tabnew ' .. selection.path)
+                            if selection and selection.filename then
+                                vim.cmd('tabnew ' .. selection.filename)
+                                vim.cmd('' .. selection.lnum)  -- Ir a la línea correcta
+                            else
+                                print("Error: No se encontró el archivo.")
+                            end
+                        end,
+                    },
+                    n = {
+                        ["<leader><tab>"] = function(prompt_bufnr)
+                            local selection = action_state.get_selected_entry()
+                            actions.close(prompt_bufnr)
+                            if selection and selection.filename then
+                                vim.cmd('tabnew ' .. selection.filename)
+                                vim.cmd('' .. selection.lnum)  -- Ir a la línea correcta
+                            else
+                                print("Error: No se encontró el archivo.")
                             end
                         end,
                     },
                 },
             },
         })
-		require('telescope').setup({})
-		
+
+		require('telescope').setup({})	
 		local builtin = require('telescope.builtin')
 		-- leader ff -> Lists files in your current working directory, respects .gitignore
 		vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
