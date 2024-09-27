@@ -50,6 +50,16 @@ https://brew.sh/
 # copia & pega para isntalar brew (extraído del enlace anterior)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
+```bash
+# editamos con nano o vim el profile
+nano ~/.profile
+
+```
+```bash
+# añadimos la siguiente linea al final y guardamos
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+```
 
 Cuando lo tengamos, lo emplearemos para instalar Node, gcc, ripgrep...
 Copiar, pegar y enter para que se ejecute el script de bash de instalación de herramientas que necesitaremos:
