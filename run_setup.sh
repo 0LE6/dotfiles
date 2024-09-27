@@ -6,7 +6,7 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-# Función que usa command para comprobar is lo que vamos a instalar existe ya
+# Función que usa command para comprobar si lo que vamos a instalar existe ya
 command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
@@ -58,7 +58,7 @@ else
     sudo apt install build-essential -y
 fi
 
-# Instalamos un par de cosillas para unos idiomas
+# Instalamos Python y pip para los plugins de Neovim
 if command_exists python3; then
     echo -e "${YELLOW}Python ya está instalado${NC}"
 else
@@ -66,6 +66,15 @@ else
     brew install python
 fi
 
+# Instalamos pynvim con pip
+if command_exists pip3; then
+    print_message "Instalando pynvim para Python3..."
+    pip3 install --user pynvim
+else
+    echo -e "${RED}pip3 no está instalado, algo ha ido mal.${NC}"
+fi
+
+# Instalamos Lua y LuaRocks para plugins que lo requieran
 if command_exists lua; then
     echo -e "${YELLOW}Lua ya está instalado${NC}"
 else
@@ -73,6 +82,18 @@ else
     brew install lua
 fi
 
+if command_exists luarocks; then
+    echo -e "${YELLOW}LuaRocks ya está instalado${NC}"
+else
+    print_message "Instalando LuaRocks..."
+    brew install luarocks
+fi
+
+# Instalar jsregexp necesario para LuaSnip
+print_message "Instalando jsregexp con LuaRocks..."
+luarocks install --lua-version=5.1 jsregexp --force
+
+# Instalamos Rust (para ciertos plugins de Neovim)
 if command_exists rustc; then
     echo -e "${YELLOW}Rust ya está instalado${NC}"
 else
@@ -86,6 +107,14 @@ if command_exists yarn; then
 else
     print_message "Instalando Yarn..."
     sudo apt install yarn -y
+fi
+
+# Instalamos wl-clipboard para el soporte de portapapeles en Wayland (en caso de necesitarlo)
+if command_exists wl-copy; then
+    echo -e "${YELLOW}wl-clipboard ya está instalado${NC}"
+else
+    print_message "Instalando wl-clipboard..."
+    sudo apt install wl-clipboard -y
 fi
 
 print_message "${RED}Perfecto, en principio todo ya está preparado :D${NC}"
