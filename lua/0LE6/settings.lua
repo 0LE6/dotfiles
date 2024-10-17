@@ -10,3 +10,7 @@ vim.opt.smartindent = true
 
 vim.opt.clipboard = "unnamedplus"
 
+-- code folding using tree-sitter
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99 
