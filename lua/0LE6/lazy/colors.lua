@@ -1,4 +1,5 @@
 -- Copiado de y modificado a raíz de: https://github.com/ThePrimeagen/init.lua/blob/master/lua/theprimeagen/lazy/colors.lua
+-- Other version
 function settingColors(color)
     color = color or "rose-pine"
     vim.cmd.colorscheme(color)
@@ -35,28 +36,28 @@ vim.api.nvim_create_user_command('ColorTheme', function(opts)
 end, {
     nargs = 1,
     complete = function()
-        return {"tokyonight", "rose-pine", "kanagawa"}
+        return {"rose-pine", "tokyonight", "kanagawa"}
     end
 })
 
 return {
-    -- {
-    --     "folke/tokyonight.nvim",
-    --     config = function()
-    --         require("tokyonight").setup({
-    --             style = "storm", -- Estilo, elige entre storm, moon, night y day
-    --             transparent = true, -- Fondo transparente como en RosePine
-    --             terminal_colors = true, -- Colores para el terminal
-    --             styles = {
-    --                 comments = { italic = false },
-    --                 keywords = { italic = false },
-    --                 sidebars = "transparent", -- Transparencia en las barras laterales
-    --                 floats = "transparent", -- Transparencia en ventanas flotantes
-    --             },
-    --         })
-    --         settingColors("tokyonight") -- Aplicamos los mismos estilos con la paleta de TokyoNight
-    --     end
-    -- },
+     {
+         -- "folke/tokyonight.nvim",
+         -- config = function()
+         --     require("tokyonight").setup({
+         --         style = "storm", -- Estilo, elige entre storm, moon, night y day
+         --         transparent = true, -- Fondo transparente como en RosePine
+         --         terminal_colors = true, -- Colores para el terminal
+         --         styles = {
+         --             comments = { italic = false },
+         --             keywords = { italic = false },
+         --             sidebars = "transparent", -- Transparencia en las barras laterales
+         --             floats = "transparent", -- Transparencia en ventanas flotantes
+         --         },
+         --     })
+         --     settingColors("tokyonight") -- Aplicamos los mismos estilos con la paleta de TokyoNight
+         -- end
+    },
     {
         "rose-pine/neovim",
         name = "rose-pine",
