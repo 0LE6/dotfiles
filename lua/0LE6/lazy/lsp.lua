@@ -27,7 +27,7 @@ return {
             -- Update: ir a definición, implementación y referencia.
             vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {
                 noremap = true,
-                silent = true, 
+                silent = true,
                 desc = 'Go to the definition'
             })
 
@@ -107,6 +107,26 @@ return {
                     require('lspconfig')[server_name].setup({
                         on_attach = on_attach,
                         capabilities = capabilities,
+                    })
+                end,
+                ['lua_ls'] = function()
+                    require('lspconfig').lua_ls.setup({
+                        on_attach = on_attach,
+                        capabilities = capabilities,
+                        settings = {
+                            Lua = {
+                                diagnostics = {
+                                    globals = { 'vim' }, -- Define 'vim' como global para evitar warnings
+                                },
+                                workspace = {
+                                    library = vim.api.nvim_get_runtime_file("", true), -- Incluye runtime de Neovim
+                                    checkThirdParty = false, -- Evita advertencias sobre bibliotecas externas
+                                },
+                                telemetry = {
+                                    enable = false, -- Deshabilita la telemetría
+                                },
+                            },
+                        },
                     })
                 end,
             },
