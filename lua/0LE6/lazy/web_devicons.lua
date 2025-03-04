@@ -4,6 +4,17 @@ return {
 	'nvim-web-devicons',
 
 	config = function()
-		require('nvim-web-devicons').get_icons()
-	end
-}
+    require('nvim-web-devicons').setup({
+      override = {
+        sh = {
+          icon = "",
+          color = "#89e051",
+          cterm_color = "113",
+          name = "Shell"
+        }
+      },
+      default = true
+    })
+  end}
+
+
