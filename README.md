@@ -83,4 +83,4 @@ chmod +x run_setup.sh
 - [Markdown Preview](https://github.com/iamcco/markdown-preview.nvim)
 - [Web Devicons](https://github.com/nvim-tree/nvim-web-devicons)
 - [Neorg](https://github.com/nvim-neorg/neorg)
-
+- [Surround](https://github.com/kylechui/nvim-surround/tree/main)
