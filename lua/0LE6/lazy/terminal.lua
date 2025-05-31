@@ -1,12 +1,26 @@
--- Para poder abrir el terminal dentro de nuestro editor emplearemos el plugin de "toggleterm"
--- https://github.com/akinsho/toggleterm.nvim 
+-- https://github.com/akinsho/toggleterm.nvim
+
+local modes = { 't', 'n' }
+local keys = { '<Esc>', '<leader>t' }
+local cmds = { '<cmd>close<CR>', '<cmd>ToggleTerm<CR>' }
+local opts = { noremap = true, silent = true }
+
+local function close_terminal_when_on_open(term)
+    -- close with Esc when we're inside the terminal mode
+    vim.api.nvim_buf_set_keymap(term.bufnr, modes[1], keys[1], cmds[1], opts)
+end
+
+local function open_terminal_when_on_close()
+    -- open terminal when there's none with <leader>t 
+    vim.api.nvim_set_keymap(modes[2], keys[2], cmds[2], opts)
+end
 
 return {
     'akinsho/toggleterm.nvim',
 
     config = function ()
         require('toggleterm').setup({
-            open_mapping = false, -- no mappeo automático
+            open_mapping = false,
             hide_numbers = true,
             shade_filetypes = {},
             shade_terminals = true,
@@ -17,20 +31,11 @@ return {
             direction = 'float',
             close_on_exit = true,
             shell = vim.o.shell,
-
-            -- Creamos una funcion para pasarle al "on_open".
-            on_open = function(term)
-                -- Cerramos el terminal con tecla Esc cuando estemos dentro de este.
-                vim.api.nvim_buf_set_keymap(term.bufnr, 't', '<Esc>', '<cmd>close<CR>', {noremap = true, silent = true})
-            end,
-
-            --  Función para manejar el cierre.
-            on_close = function (term)
-                -- por lo que he visto, esto se quedaría vació.
-            end,
+            float_opts = {
+                border = "curved",
+            },
+            on_open = close_terminal_when_on_open,
         })
-
-        -- Mappeo para abrir la terminal cuando estemos en modo normal con un leader + t.
-        vim.api.nvim_set_keymap('n', '<leader>t', '<cmd>ToggleTerm<CR>', {noremap = true, silent = true})
+        open_terminal_when_on_close()
     end
 }
