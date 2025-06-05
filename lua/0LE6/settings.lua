@@ -18,3 +18,8 @@ vim.opt.foldlevel = 99
 
 -- hide the default vim status bar under the lualine 
 vim.opt.cmdheight = 0
+
+-- vertical line cursor
+vim.opt.guicursor = {
+  "n-v-c-sm-i-ci-ve-r-cr-o:ver25-blinkon1"
+}
