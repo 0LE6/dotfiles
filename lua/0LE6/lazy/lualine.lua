@@ -8,9 +8,9 @@ return {
     require('lualine').setup {
       options = {
         icons_enabled = true,
-        theme = 'auto', -- Keep your current theme
-        component_separators = '', -- No component separators for bubble style
-        section_separators = { left = '', right = '' }, -- Rounded bubble style
+        theme = 'auto',
+        component_separators = '',
+        section_separators = { left = '', right = '' },
         disabled_filetypes = {
           statusline = {},
           winbar = {},
