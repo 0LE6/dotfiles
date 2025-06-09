@@ -9,12 +9,12 @@ return {
         npairs.setup({
             disable_filetype = { "TelescopePrompt", "vim" },
             enable_check_bracket_line = false,
-            check_ts = true,  -- Habilitar integración con treesitter
+            check_ts = true,
         })
 
-        -- Añadir reglas adicionales para todos los lenguajes
         npairs.add_rules({
-            Rule("<", ">")
+            Rule("<", ">"),
+            Rule("'", "'")
         })
     end
 }
