@@ -1,4 +1,4 @@
--- Configuración de lualine, plugin que te "tunea" la barra de información de neovim que hay debajo (by default)
+-- https://github.com/nvim-lualine/lualine.nvim
 
 return {
   'nvim-lualine/lualine.nvim',
