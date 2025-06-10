@@ -1,135 +1,69 @@
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
+        { "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
+        "hrsh7th/nvim-cmp",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
-        "hrsh7th/nvim-cmp",
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
     },
 
     config = function()
-        -- Configuración para obtener info sobre un componente del lenguaje mediante LSP,
-        -- posicionas el cursor sobre una palabra y le da a la "e" en modo normal.
-        local on_attach = function(client, bufnr)
-            vim.api.nvim_buf_set_keymap(bufnr, 'n', 'e', '<cmd>lua vim.lsp.buf.hover()<CR>', {
-                noremap = true,
-                silent = true,
-                desc = 'Show hover information'
-            })
+        local lsp_zero = require("lsp-zero")
 
-            -- Update: ir a definición, implementación y referencia.
-            vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {
-                noremap = true,
-                silent = true,
-                desc = 'Go to the definition'
-            })
+        lsp_zero.preset("recommended")
 
-            vim.api.nvim_buf_set_keymap(bufnr, 'n', '<CR>', '<cmd>lua vim.lsp.buf.definition()<CR>', {
-                noremap = true,
-                silent = true,
-                desc = 'Go to definition/implementation'
-            })
+        lsp_zero.on_attach(function(_, bufnr)
+            local opts = { buffer = bufnr, noremap = true, silent = true, desc = "LSP mapping" }
+ 
+            --[[------------------------------------------------------------------------
+            LSP KEYMAPS GUIDE
+            ------------------------------------------------------------------------------
+            e     => Show hover info under cursor
+            gd    => Jump to definition
+            gr    => List references in Telescope
+            ------------------------------------------------------------------------------]]
 
-            vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>Telescope lsp_references<CR>', {
-                noremap = true,
-                silent = true,
-                desc = 'Find references with Telescope'
-            })
+            vim.keymap.set("n", "e", vim.lsp.buf.hover, opts)
+            vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+            vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
 
-            -- Esto hace lo mismo que el anterior, pero con <leader>tab te lo abre en otra tab.
-            vim.api.nvim_buf_set_keymap(bufnr, 'n', '<Leader><Tab>', [[<cmd>Telescope lsp_references<CR><cmd>lua require('telescope.actions').select_tab()<CR>]], {
-        noremap = true,
-        silent = true,
-        desc = 'Find references and open in new tab'
-    })
-        end
+        end)
 
-        -- Configuración de las capacidades para LSP y nvim-cmp.
-        local cmp = require('cmp')
-        local cmp_lsp = require("cmp_nvim_lsp")
-        local capabilities = vim.tbl_deep_extend(
-            "force",
-            {},
-            vim.lsp.protocol.make_client_capabilities(),
-            cmp_lsp.default_capabilities()
-        )
-
-        -- Copia y pega de https://lsp-zero.netlify.app/v3.x/getting-started.html#automatic-setup
-        -- Modificación del setup para lsp-zero, que facilita la configuración de LSP.
-        local lsp_zero = require('lsp-zero')
-        lsp_zero.preset('recommended')
-        lsp_zero.setup({
-            capabilities = capabilities,
-            on_attach = on_attach
+        require("mason").setup()
+        require("mason-lspconfig").setup({
+            ensure_installed = { "lua_ls", "pyright", "rust_analyzer" },
+            handlers = {
+                lsp_zero.default_setup,
+            },
         })
 
-        -- Configuración de nvim-cmp para autocompletado
+        local cmp = require("cmp")
+        local luasnip = require("luasnip")
+
         cmp.setup({
             snippet = {
                 expand = function(args)
-                    require('luasnip').lsp_expand(args.body)
+                    luasnip.lsp_expand(args.body)
                 end,
             },
             mapping = {
-                -- Con tabulación arriba y abajo nos movemos por las sugerencias.
-                ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-                ['<CR>'] = cmp.mapping.confirm({ select = true })  -- Enter para confirmar la selección
+                ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                ["<CR>"] = cmp.mapping.confirm({ select = true }),
             },
-            sources = cmp.config.sources({
-                { name = 'nvim_lsp' },
-                { name = 'luasnip' },
-                { name = 'buffer' },
-            })
-        })
-
-        -- En esta sección manejamos los LSP para lso idiomas que queramos y le pasamos algunas configuraicones que realizamos antes.
-        -- to learn how to use mason.nvim
-        -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
-        require('mason').setup({})
-        require('mason-lspconfig').setup({
-            -- NOTE: Aquí metemos todos los LSP de los lenguajes que querramos 
-            ensure_installed = {
-                'rust_analyzer',
-                'pyright',
-                'lua_ls'
-
-            },
-            handlers = {
-                function(server_name)
-                    require('lspconfig')[server_name].setup({
-                        on_attach = on_attach,
-                        capabilities = capabilities,
-                    })
-                end,
-                ['lua_ls'] = function()
-                    require('lspconfig').lua_ls.setup({
-                        on_attach = on_attach,
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                diagnostics = {
-                                    globals = { 'vim' }, -- Define 'vim' como global para evitar warnings
-                                },
-                                workspace = {
-                                    library = vim.api.nvim_get_runtime_file("", true), -- Incluye runtime de Neovim
-                                    checkThirdParty = false, -- Evita advertencias sobre bibliotecas externas
-                                },
-                                telemetry = {
-                                    enable = false, -- Deshabilita la telemetría
-                                },
-                            },
-                        },
-                    })
-                end,
+            sources = {
+                { name = "nvim_lsp" },
+                { name = "luasnip" },
+                { name = "buffer" },
             },
         })
-    end
+    end,
 }
+
