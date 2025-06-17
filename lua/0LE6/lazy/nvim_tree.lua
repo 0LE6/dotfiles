@@ -36,6 +36,15 @@ local function my_on_attach(bufnr)
         api.node.open.tab()
     end)
 
+    -- File operations
+    vim.keymap.set('n', 'a', api.fs.create,        opts('Create file/folder'))
+    vim.keymap.set('n', 'd', api.fs.remove,        opts('Delete file/folder'))
+    vim.keymap.set('n', 'r', api.fs.rename,        opts('Rename file/folder'))
+    vim.keymap.set('n', 'x', api.fs.cut,           opts('Cut'))
+    vim.keymap.set('n', 'c', api.fs.copy.node,     opts('Copy'))
+    vim.keymap.set('n', 'p', api.fs.paste,         opts('Paste'))
+    vim.keymap.set('n', 'R', api.tree.reload,      opts('Refresh'))
+
 end
 
 return {
