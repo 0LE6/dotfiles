@@ -13,6 +13,12 @@ end
 -- Guarda el notify original en caso de necesitarlo
 vim.notify_orig = vim.notify
 
+-- Enable autoread when files change on disk
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+  pattern = "*",
+  command = "checktime",
+})
 
 -- TODO: Prueba, borrar luego
 print("Welcome back!")
