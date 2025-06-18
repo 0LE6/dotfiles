@@ -47,3 +47,4 @@ chmod +x run_setup.sh
 - [Lualine](https://github.com/nvim-lualine/lualine.nvim)
 - [Web Devicons](https://github.com/nvim-tree/nvim-web-devicons)
 - [Surround](https://github.com/kylechui/nvim-surround/tree/main)
+- [Git1](https://github.com/NeogitOrg/neogit) [Git2](https://github.com/sindrets/diffview.nvim) [Git3](https://github.com/lewis6991/gitsigns.nvim)
