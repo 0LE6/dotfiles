@@ -19,6 +19,13 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 ```
 
+```shell
+brew install ripgrep fd lua node python3 tree-sitter
+```
+
+> [!WARNING]
+> Deprecated script
+
 Cuando lo tengamos, lo emplearemos para instalar Node, gcc, ripgrep...
 Copiar, pegar y enter para que se ejecute el script de bash de instalación de herramientas que necesitaremos:
 
