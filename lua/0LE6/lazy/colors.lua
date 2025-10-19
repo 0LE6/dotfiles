@@ -64,8 +64,10 @@ return {
         config = function()
             require('rose-pine').setup({
                 variant = "auto",
+                dark_variant = "moon",
                 disable_background = true,
                 styles = {
+                    bold = false,
                     italic = false,
                     transparency = true,
                 },
