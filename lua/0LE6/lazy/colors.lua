@@ -76,7 +76,7 @@ return {
                     TelescopeNormal = { bg = "none" },
                     TelescopePromptNormal = { bg = "base" },
                     TelescopeResultsNormal = { fg = "subtle", bg = "none" },
-                    TelescopeSelection = { fg = "text", bg = "base" },
+                    TelescopeSelection = { fg = "text", bg = "" },
                     TelescopeSelectionCaret = { fg = "love", bg = "" },
                 },
                 enable = {
