@@ -49,18 +49,57 @@ function M.undo_last_commit()
     end
 end
 
--- Push current branch
+-- Push current branch with check
 function M.push()
-    local branch = vim.fn.trim(vim.fn.system("git rev-parse --abbrev-ref HEAD"))
-    vim.fn.system({ "git", "push", "origin", branch })
-    print("Pushed to branch →  " .. branch)
+    local branch = vim.fn.trim(
+        vim.fn.system("git rev-parse --abbrev-ref HEAD")
+    )
+
+    -- Check if there are commits to push
+    local status = vim.fn.systemlist(
+        "git log --branches --not --remotes --oneline"
+    )
+    if #status == 0 then
+        print("⚠ Nothing to push on branch →  " .. branch)
+        return
+    end
+
+    local result = vim.fn.systemlist({ "git", "push", "origin", branch })
+    local code = vim.v.shell_error
+
+    if code == 0 then
+        print("Pushed to branch →  " .. branch)
+    else
+        print("⚠ Push failed:")
+        print(table.concat(result, "\n"))
+    end
 end
 
--- Pull current branch
+-- Pull current branch with check
 function M.pull()
-    local branch = vim.fn.trim(vim.fn.system("git rev-parse --abbrev-ref HEAD"))
-    vim.fn.system({ "git", "pull", "origin", branch })
-    print("Pulled from branch →  " .. branch)
+    local branch = vim.fn.trim(
+        vim.fn.system("git rev-parse --abbrev-ref HEAD")
+    )
+
+    -- Check if there are commits to pull
+    local status = vim.fn.systemlist(
+        "git fetch origin " .. branch .. 
+        " && git log HEAD..origin/" .. branch .. " --oneline"
+    )
+    if #status == 0 then
+        print("⚠ Branch →  " .. branch .. " is already up to date")
+        return
+    end
+
+    local result = vim.fn.systemlist({ "git", "pull", "origin", branch })
+    local code = vim.v.shell_error
+
+    if code == 0 then
+        print("Pulled from branch →  " .. branch)
+    else
+        print("⚠ Pull failed:")
+        print(table.concat(result, "\n"))
+    end
 end
 
 -- Fetch
