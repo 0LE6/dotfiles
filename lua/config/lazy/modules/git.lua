@@ -41,7 +41,10 @@ function M.undo_last_commit()
     local result = vim.fn.systemlist({ "git", "reset", "--soft", "HEAD~1" })
     local code = vim.v.shell_error
 
-    if code == 0 then
+      local status = vim.fn.systemlist(
+          "git fetch origin " .. branch .. 
+          " && git log HEAD..origin/" .. branch .. " --oneline"
+      ) if code == 0 then
         print("↩ Last commit undone, changes are staged")
     else
         print("⚠ Failed to undo last commit:")
