@@ -35,7 +35,7 @@ return {
         opts.git.status.actions["default"] = fzf.actions.git_diff
         fzf.setup(opts)
 
-        -- files
+        -- -- Files
         vim.keymap.set(
             "n",
             "<leader>ff",
@@ -47,16 +47,25 @@ return {
             fzf.live_grep, { desc = "Find content"}
         )
 
-        -- git
+        -- -- Git
+        -- left → stage
+        -- right → unstage
+        -- ctrl+x → restore
         vim.keymap.set(
             "n",
             "<leader>gs",
             fzf.git_status, { desc = "Git status" }
         )
+        -- Extra Git flows
         vim.keymap.set(
             "n",
             "<leader>gc",
             git.commit, { desc = "Git commit" }
+        )
+        vim.keymap.set(
+            "n",
+            "<leader>gu",
+            git.undo_last_commit, { desc = "Undo last commit" }
         )
         vim.keymap.set(
             "n",
