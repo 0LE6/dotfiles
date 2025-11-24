@@ -4,9 +4,6 @@ return {
     opts = {
         winopts = { 
             border = "rounded",
-
-        },
-        fzf_opts = {
         },
         files = {
             actions = {
@@ -25,17 +22,56 @@ return {
                 end,
             },
         },
+        git = {
+            status = {
+                actions = {},
+            },
+        },
     },
     config = function(_, opts)
         local fzf = require("fzf-lua")
+        local git = require("config.lazy.modules.git")
+
+        opts.git.status.actions["default"] = fzf.actions.git_diff
         fzf.setup(opts)
 
-        -- remap
+        -- files
         vim.keymap.set(
-            "n", "<leader>ff", fzf.files, { desc = "Find file"}
+            "n",
+            "<leader>ff",
+            fzf.files, { desc = "Find file"}
         )
         vim.keymap.set(
-            "n", "<leader>fg", fzf.live_grep, { desc = "Find content"}
+            "n",
+            "<leader>fg",
+            fzf.live_grep, { desc = "Find content"}
+        )
+
+        -- git
+        vim.keymap.set(
+            "n",
+            "<leader>gs",
+            fzf.git_status, { desc = "Git status" }
+        )
+        vim.keymap.set(
+            "n",
+            "<leader>gc",
+            git.commit, { desc = "Git commit" }
+        )
+        vim.keymap.set(
+            "n",
+            "<leader>gps",
+            git.push, { desc = "Git push current branch" }
+        )
+        vim.keymap.set(
+            "n",
+            "<leader>gpl",
+            git.pull, { desc = "Git pull current branch" }
+        )
+        vim.keymap.set(
+            "n",
+            "<leader>gf",
+            git.fetch, { desc = "Git fetch" }
         )
     end,
 }
