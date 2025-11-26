@@ -66,7 +66,21 @@ return {
            "n", "<leader>e", "<cmd>Oil<CR>", 
            { desc = "Open file explorer (Oil)" }
        )
-
+    
+       -- close being inside Oil
+       vim.api.nvim_create_autocmd("FileType", {
+            pattern = "oil",
+            callback = function()
+                vim.keymap.set(
+                    "n",
+                    "<leader>q",
+                    function()
+                        require("oil").close()
+                    end,
+                    { buffer = true, desc = "Close Oil" }
+                )
+            end,
+        })
         
    end,
 }
