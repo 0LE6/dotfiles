@@ -19,7 +19,7 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99
 
 -- hide the default vim status bar under the lualine 
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1
 
 -- vertical line cursor
 vim.opt.guicursor = {
