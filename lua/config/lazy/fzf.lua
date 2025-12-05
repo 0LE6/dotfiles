@@ -59,17 +59,7 @@ return {
         vim.keymap.set(
             "n",
             "<leader>gb",
-            function()
-                local fzf = require("fzf-lua")
-                fzf.git_branches({
-                    actions = {
-                        ["default"] = function(selected)
-                            -- Switch to the selected branch
-                            vim.cmd("Git checkout " .. selected[1])
-                        end,
-                    }
-                })
-            end, { desc = "Switch Git branch" }
+            fzf.git_branches, { desc = "Switch Git branch" }
         )
 
         -- Extra Git flows
