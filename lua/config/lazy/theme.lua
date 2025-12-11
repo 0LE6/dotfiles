@@ -25,17 +25,14 @@ return {
             vim.api.nvim_set_hl(
                 0, 
                 "NormalFloat", 
-                { bg = "#232136", fg = "#e0def4" }
+                { bg = "none" }
             )
             vim.api.nvim_set_hl(
                 0, 
                 "FloatBorder", 
-                { 
-                    fg = "#9ccfd8", 
-                    bg = "#232136" 
-                }
+                { bg = "none" }
             )
         end,
-    },
+    }
 }
 
