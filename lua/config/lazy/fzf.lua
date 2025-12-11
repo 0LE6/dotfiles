@@ -4,9 +4,14 @@ return {
     opts = {
         fzf_colors = {
             true,
+            ["bg+"] = { "bg", { "PmenuSel" } },
+            ["hl+"] = { "fg", "String"  },
+            ["info"] = { "fg", "String" },
+            ["gutter"] = {"fg", { "Normal" } },
         },
         winopts = { 
             border = "rounded",
+            winbled = 100,
         },
         files = {
             actions = {
@@ -37,6 +42,12 @@ return {
 
         opts.git.status.actions["default"] = fzf.actions.git_diff
         fzf.setup(opts)
+
+        -- inside file list
+        vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
+        -- outside border bg
+        vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
 
         -- -- Files
         vim.keymap.set(

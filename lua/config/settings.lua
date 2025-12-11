@@ -27,3 +27,5 @@ vim.opt.guicursor = {
 
 -- No automatic comment insertion
 vim.cmd([[autocmd FileType * set formatoptions-=ro]])
+
+vim.o.winborder = "rounded"

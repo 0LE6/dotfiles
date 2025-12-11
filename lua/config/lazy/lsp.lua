@@ -23,8 +23,6 @@ return {
                 },
             })
 
-
-            -- Minimal LSP setup using new API
             local servers = { 
                 "lua_ls", 
                 "pyright", 
