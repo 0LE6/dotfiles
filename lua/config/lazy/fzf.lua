@@ -2,6 +2,9 @@ return {
     "ibhagwan/fzf-lua",
     dependencies = {}, -- i.e. devicons if they're needed
     opts = {
+        fzf_colors = {
+            true,
+        },
         winopts = { 
             border = "rounded",
         },
