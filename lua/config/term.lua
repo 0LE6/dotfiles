@@ -1,44 +1,31 @@
-function _G.open_floating_terminal()
-    local width = math.floor(vim.o.columns * 0.9)
-    local height = math.floor(vim.o.lines * 0.7)
-    local row = math.floor((vim.o.lines - height) / 2)
-    local col = math.floor((vim.o.columns - width) / 2)
+local term_buf = nil
 
-    local buf = vim.api.nvim_create_buf(false, true)
-    local win = vim.api.nvim_open_win(buf, true, {
-        relative = "editor",
-        width = width,
-        height = height,
-        row = row,
-        col = col,
-        style = "minimal",
-        border = "rounded",
-    })
-
-    -- Open terminal
-    local term_job_id = vim.fn.termopen(vim.o.shell, {
-        on_exit = function(_, _)  -- called when terminal exits
-            if vim.api.nvim_win_is_valid(win) then
-                vim.api.nvim_win_close(win, true)
-            end
-        end,
-    })
-
-    vim.opt.guicursor = {
-    "n-v-c:block",
-    "i-ci-ve:ver25",
-    "r-cr:hor20",
-    "t:ver25-blinkon1", -- terminal mode: vertical blinking bar
-}
-
-
-    vim.cmd("startinsert")
+function toggle_terminal()
+    -- if term buffer exists
+    if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+        vim.cmd("belowright split")
+        vim.api.nvim_set_current_buf(term_buf)
+        vim.cmd("startinsert")
+    else
+        -- if doesn't, create one
+        vim.cmd("belowright split")
+        vim.cmd("terminal")
+        vim.cmd("startinsert")
+        term_buf = vim.api.nvim_get_current_buf()
+    end
 end
 
-vim.keymap.set(
-    "n", 
-    "<leader>t", 
-    _G.open_floating_terminal, 
-    { desc = "Open floating terminal" }
-)
+function hide_terminal()
+    vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes(
+            "<C-\\><C-n>", true, false, true
+        ),
+        "n", true
+    )
+    vim.cmd("hide")
+end
+
+vim.keymap.set("n", "<leader>m", toggle_terminal)
+
+vim.keymap.set("t", "<Esc>", hide_terminal, { noremap = true, silent = true })
 
