@@ -19,6 +19,10 @@ end
 
 -- Undo last commit (soft reset, keep changes staged)
 function M.undo_last_commit()
+    local branch = vim.fn.trim(
+        vim.fn.system("git rev-parse --abbrev-ref HEAD")
+    )
+
     -- Get last commit message
     local last_commit_msg = vim.fn.systemlist(
         { "git", "log", "-1", "--pretty=%B" }
@@ -41,10 +45,10 @@ function M.undo_last_commit()
     local result = vim.fn.systemlist({ "git", "reset", "--soft", "HEAD~1" })
     local code = vim.v.shell_error
 
-      local status = vim.fn.systemlist(
-          "git fetch origin " .. branch .. 
-          " && git log HEAD..origin/" .. branch .. " --oneline"
-      ) if code == 0 then
+    local status = vim.fn.systemlist(
+        "git fetch origin " .. branch .. 
+        " && git log HEAD..origin/" .. branch .. " --oneline"
+    ) if code == 0 then
         print("↩ Last commit undone, changes are staged")
     else
         print("⚠ Failed to undo last commit:")
