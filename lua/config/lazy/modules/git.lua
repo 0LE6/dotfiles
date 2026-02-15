@@ -27,10 +27,6 @@ function M.undo_last_commit()
     local last_commit_msg = vim.fn.systemlist(
         { "git", "log", "-1", "--pretty=%B" }
     )
-    if #last_commit_msg == 0 then
-        print("⚠ No commits found to undo")
-        return
-    end
 
     print("Last commit message:\n" .. table.concat(last_commit_msg, "\n"))
 
