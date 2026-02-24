@@ -29,3 +29,6 @@ vim.opt.guicursor = {
 vim.cmd([[autocmd FileType * set formatoptions-=ro]])
 
 vim.o.winborder = "rounded"
+
+-- temporarily turn off log (it grows stupidly big)
+vim.lsp.set_log_level("off")
