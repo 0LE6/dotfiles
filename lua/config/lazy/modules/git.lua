@@ -20,7 +20,7 @@ end
 -- Undo last commit (soft reset, keep changes staged)
 function M.undo_last_commit()
     local branch = vim.fn.trim(
-        vim.fn.system("git rev-parse --abbrev-ref HEAD")
+        vim.fn.system("git branch --show-current")
     )
 
     -- Get last commit message
@@ -55,7 +55,7 @@ end
 -- Push current branch with check
 function M.push()
     local branch = vim.fn.trim(
-        vim.fn.system("git rev-parse --abbrev-ref HEAD")
+        vim.fn.system("git branch --show-current")
     )
 
     -- Check if there are commits to push
@@ -81,7 +81,7 @@ end
 -- Pull current branch with check
 function M.pull()
     local branch = vim.fn.trim(
-        vim.fn.system("git rev-parse --abbrev-ref HEAD")
+        vim.fn.system("git branch --show-current")
     )
 
     -- Check if there are commits to pull
