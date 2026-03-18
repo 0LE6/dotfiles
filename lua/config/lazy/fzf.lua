@@ -78,6 +78,12 @@ return {
             "<leader>gb",
             fzf.git_branches, { desc = "Switch Git branch" }
         )
+        vim.keymap.set(
+            "n",
+            "<leader>gh",
+            fzf.git_commits, { desc = "Show Commits Historial in that branch" }
+        )
+
 
         -- Extra Git flows
         vim.keymap.set(
