@@ -81,9 +81,13 @@ return {
         vim.keymap.set(
             "n",
             "<leader>gh",
-            fzf.git_commits, { desc = "Show Commits Historial in that branch" }
+            fzf.git_commits, { desc = "Show Commits Historial in that Branch" }
         )
-
+        vim.keymap.set(
+            "n",
+            "<leader>gH",
+            fzf.git_bcommits, { desc = "Show Commits Historial in current File" }
+        )
 
         -- Extra Git flows
         vim.keymap.set(
