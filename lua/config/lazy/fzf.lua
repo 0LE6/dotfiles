@@ -12,6 +12,9 @@ return {
         winopts = { 
             border = "rounded",
             winbled = 100,
+            preview = {
+                layout = "vertical"
+            }
         },
         files = {
             actions = {
