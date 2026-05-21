@@ -8,7 +8,7 @@ function M.commit()
         return
     end
 
-    local msg = vim.fn.input("Commit message: ")
+    local msg = vim.fn.input("Commit message → ")
     if msg ~= "" then
         vim.fn.system({ "git", "commit", "-m", msg })
         print("Commit done → " .. msg)
